@@ -31,6 +31,9 @@ export default {
     }
   },
   watch: {
+    value (val) {
+      this.fp.setDate(val)
+    },
     fpOptions (newOpt) {
       const option = JSON.parse(newOpt)
       for (let o in option) {
