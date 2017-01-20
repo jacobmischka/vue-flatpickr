@@ -2,10 +2,6 @@
 
 node_modules/
 
-dist/
-
 npm-debug.log
 
 coding-backup/
-
-theme/
