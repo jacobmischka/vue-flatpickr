@@ -55,6 +55,7 @@ export default {
     this.$emit('FlatpickrRef', this.fp)
   },
   destroyed () {
+    this.fp.destroy()
     this.fp = null
   },
   methods: {
