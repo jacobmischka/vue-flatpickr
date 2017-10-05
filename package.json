@@ -1,16 +1,16 @@
 {
   "name": "@jacobmischka/vue-flatpickr",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Flatpickr for Vue",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "scripts": {
     "watch": "run -p watch:*",
-  	"watch:lib": "rollup -cw",
-  	"watch:example": "webpack -w",
+    "watch:lib": "rollup -cw",
+    "watch:example": "webpack -w",
     "build": "run-s build:*",
-	"build:lib": "rollup -c",
-	"build:example": "webpack -p",
+    "build:lib": "rollup -c",
+    "build:example": "webpack -p",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
