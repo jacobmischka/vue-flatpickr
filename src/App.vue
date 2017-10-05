@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <h1>@jacobmischka/vue-flatpickr</h1>
-    <p>{{dateStr}}</p>
-    <Flatpickr :options="fpOptions" v-model="dateStr" />
+    <p>{{ date || 'MM-DD-YYYY' }}</p>
+    <Flatpickr :options="options" v-model="date" />
   </div>
 </template>
 
@@ -13,8 +13,8 @@ import 'flatpickr/dist/themes/airbnb.css';
 export default {
   data () {
     return {
-      dateStr: 'YYYY-MM-DD',
-      fpOptions: {
+      date: null,
+      options: {
         allowInput: true,
         enableTime: true,
         time_24hr: true

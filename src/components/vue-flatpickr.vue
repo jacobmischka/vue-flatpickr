@@ -5,6 +5,17 @@
 <script>
 import Flatpickr from 'flatpickr';
 
+const hooks = new Set([
+	'onChange',
+	'onOpen',
+	'onClose',
+	'onMonthChange',
+	'onYearChange',
+	'onReady',
+	'onValueUpdate',
+	'onDayCreate'
+]);
+
 export default {
 	props: {
 		placeholder: {
@@ -25,45 +36,73 @@ export default {
 			fp: null
 		};
 	},
+
 	computed: {
-		fpOptions () {
-			return JSON.stringify(this.options);
+		hookedOptions() {
+			return this.addHooks(this.options);
 		}
 	},
+
 	watch: {
-		value (val) {
+		value(val) {
 			this.fp.setDate(val);
 		},
-		fpOptions (newOpt) {
-			const option = JSON.parse(newOpt);
-			for (let o in option) {
-				this.fp.set(o, option[o]);
+		hookedOptions(options) {
+			for (let [key, val] in Object.entries(options)) {
+				this.fp.set(key, val);
 			}
 		}
 	},
+
 	mounted () {
 		const self = this;
-		const origOnValUpdate = this.options.onValueUpdate;
-		this.fp = new Flatpickr(this.$el, Object.assign(this.options, {
+		const origOnValUpdate = this.hookedOptions.onValueUpdate;
+		this.fp = new Flatpickr(this.$el, Object.assign(this.hookedOptions, {
 			onValueUpdate () {
 				self.onInput(self.$el.value)
 				if (typeof origOnValUpdate === 'function') {
-					origOnValUpdate()
+					origOnValUpdate();
 				}
 			}
 		}));
-		this.$emit('FlatpickrRef', this.fp)
+		this.$emit('FlatpickrRef', this.fp);
 	},
-	destroyed () {
-		this.fp.destroy()
-		this.fp = null
+	destroyed() {
+		this.fp.destroy();
+		this.fp = null;
 	},
+
 	methods: {
 		onInput(e) {
 			typeof e === 'string'
 				? this.$emit('input', e)
 				: this.$emit('input', e.target.value);
+		},
+		addHooks(options) {
+			options = Object.assign({}, options);
+
+			for (let hook of hooks) {
+				let firer = (selectedDates, dateStr, instance) => {
+					this.$emit(stripOn(hook), [selectedDates, dateStr, instance]);
+				};
+
+				if (hook in options) {
+					// Hooks must be arrays
+					if (!Array.isArray(options[hook]))
+						options[hook] = [options[hook]];
+
+					options[hook].push(firer);
+				} else {
+					options[hook] = [firer];
+				}
+			}
+
+			return options;
 		}
 	}
+};
+
+function stripOn(hook) {
+	return hook.charAt(2).toLowerCase() + hook.substring(3);
 };
 </script>
