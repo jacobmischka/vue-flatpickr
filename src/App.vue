@@ -2,12 +2,13 @@
   <div id="app">
     <h1>@jacobmischka/vue-flatpickr</h1>
     <p>{{ date || 'MM-DD-YYYY' }}</p>
-    <Flatpickr :options="options" v-model="date" />
+    <VueFlatpickr :options="options" v-model="date" />
   </div>
 </template>
 
 <script>
-import VueFlatpickr from './components/index.js';
+import VueFlatpickr from '../dist/index.js';
+import 'flatpickr/dist/flatpickr.css';
 import 'flatpickr/dist/themes/airbnb.css';
 
 export default {
@@ -22,7 +23,7 @@ export default {
     }
   },
   components: {
-    'Flatpickr': VueFlatpickr
+    VueFlatpickr
   }
 }
 </script>
