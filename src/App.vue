@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <h1>Vue-Flatpickr</h1>
-    <h4>V 2.2.0</h4>
-    <p>The date you picked is</p>
+    <h1>@jacobmischka/vue-flatpickr</h1>
     <p>{{dateStr}}</p>
     <Flatpickr :options="fpOptions" v-model="dateStr" />
-    <p>
-      Read more in <a href="https://chmln.github.io/flatpickr/" target="_blank">Officail Document</a>
-    </p>
   </div>
 </template>
 
 <script>
-import VueFlatpickr from 'components/index'
+import VueFlatpickr from './components/index.js';
+import 'flatpickr/dist/themes/airbnb.css';
 
 export default {
   data () {
@@ -32,7 +28,6 @@ export default {
 </script>
 
 <style lang="less">
-  @import url('./theme/airbnb.css');
   html,
   body {
     height: 100%;
