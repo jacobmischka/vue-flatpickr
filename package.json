@@ -1,7 +1,7 @@
 {
   "name": "@jacobmischka/vue-flatpickr",
   "version": "3.0.0",
-  "description": "Flatpickr for VueJS",
+  "description": "Flatpickr for Vue",
   "main": "dist/index.js",
   "scripts": {
     "watch": "webpack -w",
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jrainlau/vue-flatpickr.git"
+    "url": "git+https://github.com/jacobmischka/vue-flatpickr.git"
   },
   "keywords": [
     "vue",
@@ -41,14 +41,17 @@
     "Flatpickr",
     "vue-flatpickr"
   ],
-  "author": "Jrain Lau",
+  "author": "Jacob Mischka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jrainlau/vue-flatpickr/issues"
+    "url": "https://github.com/jacobmischka/vue-flatpickr/issues"
   },
-  "homepage": "https://github.com/jrainlau/vue-flatpickr#readme",
+  "homepage": "https://github.com/jacobmischka/vue-flatpickr#readme",
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
-  }
+  },
+  "files": [
+    "dist/index.js"
+  ]
 }
