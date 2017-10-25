@@ -1,3 +1,6 @@
+import 'babel-polyfill';
+import 'classlist-polyfill';
+
 import Vue from 'vue';
 import App from './App.vue';
 

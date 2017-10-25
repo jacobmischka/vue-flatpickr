@@ -10,6 +10,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].js'
 	},
+	target: 'web',
 	module: {
 		rules: [
 			{
