@@ -56,15 +56,7 @@ export default {
 
 	mounted () {
 		const self = this;
-		const origOnValUpdate = this.hookedOptions.onValueUpdate;
-		this.fp = new Flatpickr(this.$el, Object.assign(this.hookedOptions, {
-			onValueUpdate () {
-				self.onInput(self.$el.value)
-				if (typeof origOnValUpdate === 'function') {
-					origOnValUpdate();
-				}
-			}
-		}));
+		this.fp = new Flatpickr(this.$el, this.hookedOptions);
 		this.$emit('FlatpickrRef', this.fp);
 	},
 	destroyed() {
@@ -80,6 +72,17 @@ export default {
 		},
 		addHooks(options) {
 			options = Object.assign({}, options);
+
+			// Add input vue event
+			if (!options.onChange) {
+				options.onChange = [];
+			} else if (!Array.isArray(options.onChange)) {
+				options.onChange = [options.onChange];
+			}
+
+			options.onChange.push((selectedDates, dateStr) => {
+				this.$emit('input', dateStr);
+			});
 
 			for (let hook of hooks) {
 				let firer = (selectedDates, dateStr, instance) => {
