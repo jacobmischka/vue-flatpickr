@@ -12,8 +12,7 @@ const hooks = new Set([
 	'onMonthChange',
 	'onYearChange',
 	'onReady',
-	'onValueUpdate',
-	'onDayCreate'
+	'onValueUpdate'
 ]);
 
 export default {
