@@ -1,6 +1,6 @@
 {
   "name": "@jacobmischka/vue-flatpickr",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Flatpickr for Vue",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
