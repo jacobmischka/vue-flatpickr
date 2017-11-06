@@ -18,7 +18,9 @@ export default {
       options: {
         allowInput: true,
         enableTime: true,
-        time_24hr: true
+        time_24hr: true,
+		    mode: 'multiple',
+        conjunction: '; '
       }
     }
   },

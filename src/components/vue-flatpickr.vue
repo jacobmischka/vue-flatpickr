@@ -47,9 +47,10 @@ export default {
 		value(val) {
 			this.fp.setDate(val);
 		},
-		hookedOptions(options) {
+		hookedOptions(options, oldOptions) {
 			for (let [key, val] in Object.entries(options)) {
-				this.fp.set(key, val);
+				if (val !== oldOptions[key])
+					this.fp.set(key, val);
 			}
 		}
 	},
