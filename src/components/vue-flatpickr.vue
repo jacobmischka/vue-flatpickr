@@ -19,7 +19,7 @@ export default {
 	props: {
 		placeholder: {
 			type: String,
-			default: ''
+			required: false
 		},
 		options: {
 			type: Object,
@@ -65,15 +65,9 @@ export default {
 	},
 
 	methods: {
-		onInput(e) {
-			typeof e === 'string'
-				? this.$emit('input', e)
-				: this.$emit('input', e.target.value);
-		},
 		addHooks(options) {
 			options = Object.assign({}, options);
 
-			// Add input vue event
 			if (!options.onChange) {
 				options.onChange = [];
 			} else if (!Array.isArray(options.onChange)) {
@@ -86,7 +80,7 @@ export default {
 
 			for (let hook of hooks) {
 				let firer = (selectedDates, dateStr, instance) => {
-					this.$emit(stripOn(hook), [selectedDates, dateStr, instance]);
+					this.$emit(stripOn(hook), selectedDates, dateStr, instance);
 				};
 
 				if (hook in options) {
