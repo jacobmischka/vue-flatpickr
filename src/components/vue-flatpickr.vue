@@ -1,5 +1,5 @@
 <template>
-	<input type="text" :placeholder="placeholder" :value="value">
+	<input type="text" :placeholder="placeholder">
 </template>
 
 <script>
@@ -17,17 +17,17 @@ const hooks = new Set([
 
 export default {
 	props: {
+		value: {
+			type: [String, Array, Date],
+			required: true
+		},
 		placeholder: {
 			type: String,
-			default: ''
+			required: false
 		},
 		options: {
 			type: Object,
 			default: () => ({})
-		},
-		value: {
-			type: String,
-			default: ''
 		}
 	},
 	data () {
@@ -54,10 +54,10 @@ export default {
 		}
 	},
 
-	mounted () {
+	mounted() {
 		const self = this;
 		this.fp = new Flatpickr(this.$el, this.hookedOptions);
-		this.$emit('FlatpickrRef', this.fp);
+		this.fp.setDate(this.value);
 	},
 	destroyed() {
 		this.fp.destroy();
@@ -65,23 +65,25 @@ export default {
 	},
 
 	methods: {
-		onInput(e) {
-			typeof e === 'string'
-				? this.$emit('input', e)
-				: this.$emit('input', e.target.value);
-		},
 		addHooks(options) {
 			options = Object.assign({}, options);
 
-			// Add input vue event
 			if (!options.onChange) {
 				options.onChange = [];
 			} else if (!Array.isArray(options.onChange)) {
 				options.onChange = [options.onChange];
 			}
 
-			options.onChange.push((selectedDates, dateStr) => {
-				this.$emit('input', dateStr);
+			options.onChange.push(selectedDates => {
+				// Return one date for 'single' mode
+				if (
+					selectedDates
+					&& Array.isArray(selectedDates)
+					&& (!options.mode || options.mode === 'single')
+				)
+					selectedDates = selectedDates[0];
+
+				this.$emit('input', selectedDates);
 			});
 
 			for (let hook of hooks) {
